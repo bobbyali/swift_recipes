@@ -17,8 +17,333 @@ The code recipes are split into the following categories:
 # <a name="swift"/>Swift language basics
 
 
+## Variables and Constants
+
+Variables vs Constants
+
+```swift
+var variableName = someVariable
+let constantName = someConstant
+```
+
+Types
+
+```swift
+String, Int, UInt, Float (32 bit), Double (64 bit, default for type inference), Bool
+```
+
+Integer literals can be written as:
+*	A decimal number, with no prefix
+*	A binary number, with a 0b prefix
+*	An octal number, with a 0o prefix
+*	A hexadecimal number, with a 0x prefix
+
+Initialising variables 
+
+```swift
+var milesRunToday = 3
+var milesRunToday: Double = 3 	// type annotation
+```
+Note that you need to do a specific cast if you need floats or ints, because otherwise initial assignment will be locked in as int.
+
+Optionals
+
+```swift
+var serverResponseCode: Int? = 404
+serverResponseCode = nil
+var surveyAnswer: String?  	// default value is nil
+```
+
+Force unbinding / unwrapping (need to do this to get the data from optional variables). Use when you know that varName is not nil.
+
+```swift
+varName!
+```
 
 
+## Operators
+
+Ternary operators
+```swift
+hasHeader ? 50 : 20
+```
+
+Nil coalescing operator
+```swift
+a ?? b 	// means a != nil ? a! : b
+```
+
+Range operators
+
+```swift
+a..b  		// closed range, returns (a, a+1, a+2, ..., b-1, b)
+a..<b 		// half open range, returns ((a, a+1, a+2, ..., b-1)
+```
+
+Half-open ranges are great for zero-index arrays, where you don't want to call the length of the list.
+
+
+## Inputs and Outputs
+
+```swift
+println 	// prints with a carriage return
+print 		// no carriage return
+println("\(var1)\(var2)")  // string interpolation
+println("+ Signs can concatenate strings with " + otherStrings)
+println("Can also concatenate by ").append("doing this")
+```
+
+## Collections
+
+Arrays - all items are of same type.
+
+```swift
+var shoppingList: [String] = ["Eggs", "Milk"]
+
+var someInts = [Int]()  		// empty array
+var threeDoubles = [Double](count: 3, repeatedValue: 0.0)    // repeated zeros array
+
+for item in shoppingList {
+	...
+}
+
+for (index, value) in enumerate(shoppingList) {
+    println("Item \(index + 1): \(value)")
+}
+```
+
+Dictionaries - handles key-value pairings of the same type.
+
+```swift
+var airports: [String: String] = ["YYZ": "Toronto Pearson", "DUB": "Dublin"]
+var namesOfIntegers = [Int: String]()
+
+for (airportCode, airportName) in airports {
+	println("\(airportCode): \(airportName)")
+}
+
+for airportCode in airports.keys {
+	println("Airport code: \(airportCode)")
+}
+```
+
+Tuples - groups together items of different types.
+```swift
+let http404Error = (404, "Not Found")
+	
+let (statusCode, statusMessage) = http404Error
+let (justTheStatusCode, _) = http404Error
+println("The status code is \(http404Error.0)")
+let http200Status = (statusCode: 200, description: "OK")
+println("The status code is \(http200Status.statusCode)")
+```
+
+## Control Flow
+
+For loops.
+
+```swift
+for index in 1...5 {
+    println("\(index) times 5 is \(index * 5)")
+}
+
+for var index = a; index < x; ++index {
+    //do some code here
+}
+
+for _ in 1...power {
+    answer *= base 		// don't need the iterating index variable
+}
+```
+
+(Do-)While loops.
+
+If statements.
+
+```swift
+if () {
+	...
+} else if () {
+	...
+} else {
+	
+}
+```
+
+Switches.
+
+```swift
+switch (someCharacter) {
+	case "a":
+	default:
+}	 	// no explicit break needed in a match (use fallthrough to override)
+
+// can do interval matching
+switch count {
+	case 0:
+	    naturalCount = "no"
+	case 1...10:
+	    naturalCount = "a few"
+	default:
+	    naturalCount = "lots"
+}
+
+// can use with tuples
+let somePoint = (1, 1)
+switch somePoint {
+	case (0, 0):
+	    println("(0, 0) is at the origin")
+	case (_, 0):
+	    println("(\(somePoint.0), 0) is on the x-axis")
+	case (0, _):
+	    println("(0, \(somePoint.1)) is on the y-axis")
+	case (-2...2, -2...2):
+	    println("(\(somePoint.0), \(somePoint.1)) is inside the box")
+	default:
+	    println("(\(somePoint.0), \(somePoint.1)) is outside of the box")
+}
+```
+
+## Functions
+
+One input, no output.
+
+```swift
+func checkValue(counter: Int) {
+    ...
+}
+```
+
+One input, one output.
+
+```swift
+func sayHello(personName: String) -> String {
+    let greeting = "Hello, " + personName + "!"
+    return greeting
+}
+```
+
+One input, multiple outputs via tuple.
+
+```swift
+func minMax(array: [Int]) -> (min: Int, max: Int) {
+    var currentMin = array[0]
+    var currentMax = array[0]
+    for value in array[1..<array.count] {
+        if value < currentMin {
+            currentMin = value
+        } else if value > currentMax {
+            currentMax = value
+        }
+    }
+    return (currentMin, currentMax)
+}
+```
+
+Can make the return tuple completely optional by 
+
+```swift
+(min: Int, max: Int)?
+```
+
+Can add external parameter names
+```swift
+func join(string s1: String, toString s2: String, withJoiner joiner: String) -> String {
+	return s1 + joiner + s2
+}
+
+join(string: "hello", toString: "world", withJoiner: ", ")
+```
+
+Can use the internal param name as the external name by prefixing with #
+
+```swift
+func containsCharacter(#string: String, #characterToFind: Character) -> Bool {
+		    ...
+}
+```
+
+External name given automatically if default value defined
+
+```swift
+func join(s1: String, s2: String, joiner: String = " ") -> String {
+	return s1 + joiner + s2
+}
+
+join("hello", "world", joiner: "-")
+```
+
+Variadic parameters (can have zero or more of same type, must appear last)
+
+```swift
+func arithmeticMean(numbers: Double...) -> Double {
+	for number in numbers {
+		total += number
+	}
+}
+
+arithmeticMean(1, 2, 3, 4, 5)
+arithmeticMean(3, 8.25, 18.75)
+```
+
+Can have in-out parameters
+
+```swift
+func swapTwoInts(inout a: Int, inout b: Int) {
+	let temporaryA = a
+	a = b
+	b = temporaryA
+}
+
+swapTwoInts(&someInt, &anotherInt)
+```
+
+Function Types
+
+```swift
+var mathFunction: (Int, Int) -> Int = addTwoInts
+```
+
+## Classes, Objects and Structures
+
+Simple class
+
+```swift
+class Shape {
+    var color:UIColor
+    init(color:UIColor) {
+        self.color = color
+    }
+    func getArea() -> Double {
+        return 0
+    }
+}
+```
+
+Inheritance.
+
+```swift
+class Circle: Shape {
+    var radius:Int
+    init(radius:Int, color:UIColor) {
+        self.radius = radius
+        super.init(color: color)
+    }
+    override func getArea() -> Double {
+        return M_PI * Double(self.radius * self.radius)
+    }
+}
+
+var circle:Circle = Circle(radius: 2, color: UIColor.redColor())
+circle.color
+print(circle.getArea())
+```
+
+Structures can't inherit, override methods etc.
+Structures are a VALUE TYPE, whereas classes are a REFERENCE TYPE.
+Structures have initializers, but it can create its own (a memberwise initializer).
+e.g. [CGPoint](https://developer.apple.com/Library/ios/documentation/GraphicsImaging/Reference/CGGeometry/index.html#//apple_ref/c/tdef/CGPoint) (core graphics point)
+		
 
 # <a name="ios"/>iOS development
 
@@ -144,10 +469,14 @@ let vc = SettingsViewController()
 self.navigationController?.pushViewController(vc, animated: true)
 ```
 
-Segues (have to use IB to set up segue identifiers).
+Segues. Need to use Interface Builder to set up the segue identifier.
 
 ```swift
-
+override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	if (segue.identifier == "aSegueIdentifier") {
+		let newViewController = segue.destinationViewController as NewViewController
+	}
+}
 ```
 
 ### Constraints with Masonry Snap
