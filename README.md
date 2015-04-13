@@ -546,6 +546,30 @@ press.numberOfTapsRequired = 0
 press.numberOfTouchesRequired = 1
 press.delegate = self
 self.view.addGestureRecognizer(press)
+
+
+func doSomething(sender: UILongPressGestureRecognizer) {
+	let touchPosition = sender.locationInView(self.view)
+	if sender.state == UIGestureRecognizerState.Began {
+		//
+	} else if sender.state == UIGestureRecognizerState.Ended {
+		//
+	}
+}
+```
+
+To implement a shake.
+
+```swift
+override func canBecomeFirstResponder() -> Bool {
+	return true
+}
+
+override func motionEnded(motion: UIEventSubtype, withEvent event: UIEvent) {
+	if motion == .MotionShake {
+		//        
+	}
+}
 ```
 
 ### Notifications
