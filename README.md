@@ -1,9 +1,11 @@
 # Swift iOS Code Recipes
-This page contains minimal code snippets for programatically implementing aspects of iOS applications using the Swift programming language.
+This page contains minimal code snippets for programatically implementing aspects of iOS applications using the Swift programming language. It's primarily for my own reference, but I thought others might find it helpful.
 
-The idea of these recipes is to provide a compact reference document for quickly looking up how to do something using Swift. It assumes that you already know the basics of programming and iOS development. Explanations are left out in order to keep the pages as compact as possible. You'll also need to modify them to suit your purposes. (If you don't know how to use these, you'll want to study some introductory tutorials e.g. [Apple's Swift documentation](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/), and [Ray Wenderlich's iOS development tutorial](http://www.raywenderlich.com/1797/ios-tutorial-how-to-create-a-simple-iphone-app-part-1).)
+The idea of these recipes is to provide a compact reference document for quickly looking up how to do something using Swift. It assumes that you already know the basics of programming and iOS development. Explanations are left out in order to keep the pages as compact as possible. You'll also need to modify them to suit your purposes. 
 
-The recipes provided here are far from comprehensive - they simply cover those that I've come across whilst I was learning iOS development during an [online Swift/iOS bootcamp](http://www.hacker-dad.com/sprint-2-ios-development/). Likewise, there's no guarantee that these are correct or examples of best practice. If you see something that needs improving, please let me know. Corrections and pull requests would be greatly appreciated. 
+If you don't know how to use these, you'll want to study some introductory tutorials e.g. [Apple's Swift documentation](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/), and [Ray Wenderlich's iOS development tutorial](http://www.raywenderlich.com/1797/ios-tutorial-how-to-create-a-simple-iphone-app-part-1). If you're looking for something similar but for Objective C, check out this [Objective C cheat sheet](https://github.com/iwasrobbed/Objective-C-CheatSheet).
+
+The recipes provided here are far from comprehensive - they simply cover those that I've come across whilst I was learning iOS development during an [online Swift/iOS bootcamp](http://www.hacker-dad.com/sprint-2-ios-development/). Likewise, there's no guarantee that these are correct or examples of best practice. If you see something that needs improving, please let me know. Any corrections / suggestions would be greatly appreciated!
 
 The code recipes are split into the following categories:
 
