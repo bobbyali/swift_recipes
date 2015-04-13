@@ -8,6 +8,13 @@ The recipes provided here are far from comprehensive - they simply cover those t
 The code recipes are split into the following categories:
 
 * [Swift language reference](#swift) - a very quick summary of the language.
+	* [Variables and Constants](#vars)
+	* [Operators](#operators)
+	* [Inputs and Outputs](#io)
+	* [Collections](#collections)
+	* [Control Flow](#flow)
+	* [Functions](#functions)
+	* [Classes and Structs](#oop)
 * [iOS development reference](#ios) - basic GUI features that you could create with Interface Builder.
 	* [GUI Layout](#gui_layout)
 	* [GUI Events](#gui_events)
@@ -17,7 +24,7 @@ The code recipes are split into the following categories:
 # <a name="swift"/>Swift language basics
 
 
-## Variables and Constants
+## <a name="vars"/>Variables and Constants
 
 Variables vs Constants
 
@@ -29,7 +36,10 @@ let constantName = someConstant
 Types
 
 ```swift
-String, Int, UInt, Float (32 bit), Double (64 bit, default for type inference), Bool
+String, Int, UInt
+Float	 	// (32 bit)
+Double 	// (64 bit, default for type inference)
+Bool
 ```
 
 Integer literals can be written as:
@@ -61,7 +71,7 @@ varName!
 ```
 
 
-## Operators
+## <a name="operators"/>Operators
 
 Ternary operators
 ```swift
@@ -83,7 +93,7 @@ a..<b 		// half open range, returns ((a, a+1, a+2, ..., b-1)
 Half-open ranges are great for zero-index arrays, where you don't want to call the length of the list.
 
 
-## Inputs and Outputs
+## <a name="io"/>Inputs and Outputs
 
 ```swift
 println 	// prints with a carriage return
@@ -93,7 +103,7 @@ println("+ Signs can concatenate strings with " + otherStrings)
 println("Can also concatenate by ").append("doing this")
 ```
 
-## Collections
+## <a name="collections"/>Collections
 
 Arrays - all items are of same type.
 
@@ -138,7 +148,7 @@ let http200Status = (statusCode: 200, description: "OK")
 println("The status code is \(http200Status.statusCode)")
 ```
 
-## Control Flow
+## <a name="flow"/>Control Flow
 
 For loops.
 
@@ -157,6 +167,14 @@ for _ in 1...power {
 ```
 
 (Do-)While loops.
+
+```swift
+while (x > 5) {
+}
+
+do {
+} while (x < 10)
+```
 
 If statements.
 
@@ -204,7 +222,7 @@ switch somePoint {
 }
 ```
 
-## Functions
+## <a name="functions"/>Functions
 
 One input, no output.
 
@@ -304,7 +322,7 @@ Function Types
 var mathFunction: (Int, Int) -> Int = addTwoInts
 ```
 
-## Classes, Objects and Structures
+## <a name="oop"/>Classes, Objects and Structures
 
 Simple class
 
@@ -340,8 +358,11 @@ print(circle.getArea())
 ```
 
 Structures can't inherit, override methods etc.
+
 Structures are a VALUE TYPE, whereas classes are a REFERENCE TYPE.
+
 Structures have initializers, but it can create its own (a memberwise initializer).
+
 e.g. [CGPoint](https://developer.apple.com/Library/ios/documentation/GraphicsImaging/Reference/CGGeometry/index.html#//apple_ref/c/tdef/CGPoint) (core graphics point)
 		
 
