@@ -29,16 +29,16 @@ The code recipes are split into the following categories:
 Variables vs Constants
 
 ```swift
-var variableName = someVariable
-let constantName = someConstant
+var variableName
+let constantName
 ```
 
 Types
 
 ```swift
 String, Int, UInt
-Float	 	// (32 bit)
-Double 	// (64 bit, default for type inference)
+Float		// (32 bit)
+Double		// (64 bit, default for type inference)
 Bool
 ```
 
@@ -502,7 +502,7 @@ override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 
 ### Constraints with Masonry Snap
 
-[Masonry Snap](https://github.com/Masonry/Snap is a great CocoaPod for quickly defining constraints.
+[Masonry Snap](https://github.com/Masonry/Snap) is a great CocoaPod for quickly defining constraints.
 
 ```swift
 let padding = UIEdgeInsetsMake(10, 10, 10, -50)
@@ -561,7 +561,7 @@ NSNotificationCenter.defaultCenter().addObserver(
 To invoke a notification.
 
 ```swift
-NSNotificationCenter.defaultCenter().postNotificationName(mySpecialNotificationKey, object: nil)
+NSNotificationCenter.defaultCenter().postNotificationName(someKey, object: nil)
 ```
 
 To define the target action for a notification.
