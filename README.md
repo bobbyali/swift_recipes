@@ -516,6 +516,110 @@ someView.snp_makeConstraints { make in
 }
 ```
 
+### Graphics
+
+Make a blank image.
+
+```swift
+UIGraphicsBeginImageContext(CGSizeMake(width, height));
+CGContextAddRect(UIGraphicsGetCurrentContext(), CGRectMake(0, 0, width, height)); // this may not be necessary
+var image: UIImage = UIGraphicsGetImageFromCurrentImageContext();
+UIGraphicsEndImageContext();
+```
+
+Draw a line based on user swipe.
+
+```swift
+
+    override func touchesBegan(touches: Set<NSObject>, withEvent event: UIEvent) {
+        swiped = false
+        if let touch = touches.first as? UITouch {
+            lastPoint = touch.locationInView(self.view)
+        }
+    }
+    
+    func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {        
+        UIGraphicsBeginImageContext(view.frame.size)
+        let context = UIGraphicsGetCurrentContext()
+        self.imageView!.image!.drawInRect(CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height))
+        
+        CGContextMoveToPoint(context, fromPoint.x, fromPoint.y)
+        CGContextAddLineToPoint(context, toPoint.x, toPoint.y)
+                
+        CGContextSetLineCap(context, kCGLineCapRound)
+        CGContextSetLineWidth(context, CGFloat(10.0))
+        CGContextSetRGBStrokeColor(context, CGFloat(1.0), CGFloat(0.0), CGFloat(0.0), 1.0)
+        CGContextSetBlendMode(context, kCGBlendModeNormal)
+                
+        CGContextStrokePath(context)
+              
+        self.imageView!.image = UIGraphicsGetImageFromCurrentImageContext()
+
+        UIGraphicsEndImageContext()
+        
+    }
+    
+    override func touchesMoved(touches: Set<NSObject>, withEvent event: UIEvent) {
+
+        swiped = true
+        if let touch = touches.first as? UITouch {
+            let currentPoint = touch.locationInView(view)
+            drawLineFrom(lastPoint, toPoint: currentPoint)
+            
+            lastPoint = currentPoint
+        }
+    }
+    
+    
+    override func touchesEnded(touches: Set<NSObject>, withEvent event: UIEvent) {
+        
+        if !swiped {
+            // draw a single point
+            drawLineFrom(lastPoint, toPoint: lastPoint)
+        }
+        
+        // Merge tempImageView into mainImageView
+        UIGraphicsBeginImageContext(self.imageView!.frame.size)
+        self.imageView!.image?.drawInRect(CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height), blendMode: kCGBlendModeNormal, alpha: 1.0)
+        self.imageView!.image?.drawInRect(CGRect(x: 0, y: 0, width: view.frame.size.width, height: view.frame.size.height), blendMode: kCGBlendModeNormal, alpha: CGFloat(1.0))
+        self.imageView!.image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+    }
+
+```
+
+### Camera
+
+View controller needs to inherit from 
+
+```swift
+// View controller needs to inherit from these
+class SomeClass: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+
+	var imagePicker = UIImagePickerController()
+	
+	func addPhoto() {
+        if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.SavedPhotosAlbum){
+           	self.imagePicker.delegate = self
+			self.imagePicker.sourceType = UIImagePickerControllerSourceType.Camera;
+			self.imagePicker.sourceType = UIImagePickerControllerSourceType.SavedPhotosAlbum;
+			self.imagePicker.allowsEditing = false
+			self.presentViewController(self.imagePicker, animated: true, completion: nil)
+		})
+    }
+    
+
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            // do something with image
+        })
+    }    
+	
+```
+
+
+
 ## <a name="gui_events"/>GUI Events
 
 ### Gray Activity Indicator View
